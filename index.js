@@ -1,8 +1,10 @@
 const express = require('express')
-const app = express()
 const cors = require('cors')
+const path = require('path')
+const loginRouter = require(path.join(__dirname, 'router/login.js'))
+const app = express()
 
-// 处理客户端post请求参数
+// 处理客户端请求post参数
 // for parsing application/json
 app.use(express.json()) 
 // for parsing application/x-www-form-urlencoded
@@ -11,12 +13,10 @@ app.use(express.urlencoded({ extended: true }))
 // 设置跨域
 app.use(cors())
 
-// 监听端口
-app.listen(8888,() => {
-    console.log('running...')
+// 设置路径
+app.use('/api', loginRouter)
+
+app.listen(8888, () => {
+  console.log('running...')
 })
 
-// 设置路由
-app.get('/data',(req,res) => {
-    res.send('hello')
-})
